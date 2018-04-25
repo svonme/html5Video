@@ -1,0 +1,11 @@
+{
+  "name": "html5Video",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:svonme/html5Video.git",
+  "author": "svon <svon.me@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "recordrtc": "^5.4.6"
+  }
+}

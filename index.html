@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RecordRTC</title>
+    <script src="node_modules/recordrtc/RecordRTC.js"></script>
+    <script src="//cdn.svon.org/libs/jquery.min.js"></script>
+  </head>
+  <body>
+    <video id="video" width="500px" height="500px"></video>
+    <hr/>
+    <button id="start">start</button>
+    <button id="stop" style="margin-left: 10px;">stop</button>
+
+    <script>
+      function captureUserMedia(success_callback) {
+          var session = {
+              audio: true,
+              video: true
+          };
+          navigator.mediaDevices.getUserMedia(session).then(function(stream) {
+            success_callback(stream)
+          }).catch(function(err) {
+            alert('Unable to capture your camera. Please check console logs.');
+            console.error(err)
+          })
+      }
+
+      $("#start").on("click", function(){
+        var videoElement = $("#video").get(0)
+        var $button = $(this)
+        captureUserMedia(function(stream){
+          videoElement.src = window.URL.createObjectURL(stream);
+          videoElement.play();
+          videoElement.muted = true;
+          videoElement.controls = false;
+
+          recorder = RecordRTC(stream, {
+              type: 'video'
+          });
+
+          recorder.startRecording();
+
+          // enable stop-recording button
+          $button.props({ disabled: false })
+
+        })
+      })
+    </script>
+  </body>
+</html>
