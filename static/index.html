@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>RecordRTC</title>
-    <script src="node_modules/recordrtc/RecordRTC.js"></script>
+    <script src="./RecordRTC.js"></script>
     <script src="//cdn.svon.org/libs/jquery.min.js"></script>
   </head>
   <body>
@@ -25,11 +25,36 @@
             console.error(err)
           })
       }
+      function generateRandomString() {
+          if (window.crypto) {
+              var a = window.crypto.getRandomValues(new Uint32Array(3)),
+                  token = '';
+              for (var i = 0, l = a.length; i < l; i++) token += a[i].toString(36);
+              return token;
+          } else {
+              return (Math.random() * new Date().getTime()).toString(36).replace( /\./g , '');
+          }
+      }
+
+      var recorder, mediaStream
+
+      $("#stop").on("click", function(){
+        recorder.stopRecording(function(){
+          var blob = recorder.getBlob();
+          var fileName = generateRandomString() + '.webm';
+          var file = new File([blob], fileName, {
+              type: 'video/webm'
+          });
+          console.log(file)
+          mediaStream.stop();
+        });
+      })
 
       $("#start").on("click", function(){
         var videoElement = $("#video").get(0)
         var $button = $(this)
         captureUserMedia(function(stream){
+          mediaStream = stream
           videoElement.src = window.URL.createObjectURL(stream);
           videoElement.play();
           videoElement.muted = true;
@@ -40,10 +65,8 @@
           });
 
           recorder.startRecording();
-
-          // enable stop-recording button
-          $button.props({ disabled: false })
-
+          // 禁用按钮
+          $button.prop({ disabled: false })
         })
       })
     </script>

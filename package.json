@@ -1,11 +1,30 @@
 {
   "name": "html5Video",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "bin/dev.js",
   "repository": "git@github.com:svonme/html5Video.git",
   "author": "svon <svon.me@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  },
   "dependencies": {
-    "recordrtc": "^5.4.6"
+    "express": "^4.16.3",
+    "recordrtc": "^5.4.6",
+    "swig": "^1.4.2",
+    "babel-core": "^6.26.0",
+    "babel-helpers": "^6.24.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "babel-traverse": "^6.26.0",
+    "json5": "^0.5.1",
+    "pm2": "^2.10.1",
+    "request": "^2.83.0"
   }
 }
